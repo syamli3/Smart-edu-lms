@@ -56,7 +56,7 @@ Smart-edu-lms/
 ### 🔹 1. Clone Repository
 
 ```
-git clone https://github.com/syamli-3/Smart-edu-lms.git
+git clone https://github.com/syamli3/Smart-edu-lms.git
 cd Smart-edu-lms
 ```
 
