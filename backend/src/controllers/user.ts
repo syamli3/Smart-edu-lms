@@ -104,18 +104,13 @@ export const updateUser = async (req: Request, res: Response) => {
         user.password = req.body.password;
       }
       const updatedUser = await user.save();
-      // up to here it's working
       if ((req as any).user) {
-        // here we passing userId as objectId instead of string
-        // we also have other problem
         await logActivity({
           userId: (req as any).user._id.toString(),
           action: "Updated User",
           details: `Updated user with email: ${updatedUser.email}`,
         });
       }
-      // we are not returning something here (res.json) so the client is waiting forever
-      // sorry about that!
       res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
@@ -197,8 +192,6 @@ export const deleteUser = async (req: Request, res: Response) => {
     if (user) {
       await user.deleteOne();
       if ((req as any).user) {
-        // here we passing userId as objectId instead of string
-        // we also have other problem
         await logActivity({
           userId: (req as any).user._id.toString(),
           action: "Deleted User",

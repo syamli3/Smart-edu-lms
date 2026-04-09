@@ -28,32 +28,28 @@ import examRouter from "./routes/exam.ts";
 import dashboardRouter from "./routes/dashboard.ts";
 
 // Load environment variables from .env file
+// Load environment variables from .env file
 dotenv.config();
 
 const app: Application = express();
-const PORT = process.env.PORT || 5000;
-
-// next add security middlewares/headers + make sure to listen on *root file* for changes
-
-app.use(helmet()); // Security middleware to set various HTTP headers for app security
-app.use(express.json()); // Middleware to parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
-app.use(cookieParser()); // Middleware to parse cookies
-
-// log http requests to console
-// NODE_ENV missing in .env
-if (process.env.STAGE === "development") {
-  app.use(morgan("dev"));
-}
+const PORT = process.env.PORT || 5001;
 
 // cross-origin resource sharing (CORS) middleware
-// credentials: true allows cookies to be sent with requests
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: ["http://localhost:5173", "http://localhost:5176"],
     credentials: true,
   })
 );
+
+app.use(helmet()); // Security middleware
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+if (process.env.STAGE === "development") {
+  app.use(morgan("dev"));
+}
 
 // health check route
 app.get("/", (req: Request, res: Response) => {
@@ -89,7 +85,7 @@ app.use((err: Error, req: Request, res: Response, next: Function) => {
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log("Server is running on port 5000");
+    console.log(`Server is running on port ${PORT}`);
   });
 });
 // you can use any of these scripts in your package.json to run the server with nodemon or bun

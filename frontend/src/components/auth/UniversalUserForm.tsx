@@ -18,6 +18,7 @@ import { CustomSelect } from "@/components/global/CustomSelect";
 import { useEffect, useState } from "react";
 // import { useAuth } from "@/hooks/AuthProvider";
 import { CustomMultiSelect } from "@/components/global/CustomMultiSelect";
+import { useNavigate } from "react-router";
 
 export type FormType = "login" | "create" | "update";
 interface Props {
@@ -70,6 +71,7 @@ type FormValues = z.infer<ReturnType<typeof createSchema>>;
 const UniversalUserForm = ({ type, initialData, onSuccess, role }: Props) => {
   const isUpdate = type === "update";
   const isLogin = type === "login";
+  const navigate = useNavigate();
   // const { setUser } = useAuth();
 
   const [classes, setClasses] = useState<Class[]>([]);
@@ -168,11 +170,12 @@ const UniversalUserForm = ({ type, initialData, onSuccess, role }: Props) => {
         //   todo: set user context
         console.log(user);
         toast.success("Logged in successfully");
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       } else if (type === "create") {
         await api.post("/users/register", payload);
         toast.success("Account created successfully!");
         if (onSuccess) onSuccess();
+        else navigate("/login");
       } else if (type === "update" && initialData?._id) {
         await api.put(`/users/update/${initialData._id}`, payload);
         toast.success("User updated successfully");

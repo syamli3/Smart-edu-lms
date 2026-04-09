@@ -13,25 +13,26 @@ import {
 } from "../controllers/user.ts";
 import { protect, authorize } from "../middleware/auth.ts";
 
-// make sure to protect to get access to the user token
-userRoutes.post(
-  "/register",
-  protect,
-  authorize(["admin", "teacher"]),
-  register
-);
+// ✅ FIXED: register should NOT be protected
+userRoutes.post("/register", register);
+
+// login
 userRoutes.post("/login", login);
+
 userRoutes.post("/logout", logoutUser);
-userRoutes.get("/profile", protect, getUserProfile); // Get User Profile
-// teacher should be able to fetch all students
+
+// protected routes
+userRoutes.get("/profile", protect, getUserProfile);
+
 userRoutes.get("/", protect, authorize(["admin", "teacher"]), getUsers);
-// here you can use either put or patch
+
 userRoutes.put(
   "/update/:id",
   protect,
   authorize(["admin", "teacher"]),
   updateUser
 );
+
 userRoutes.delete(
   "/delete/:id",
   protect,
@@ -40,5 +41,3 @@ userRoutes.delete(
 );
 
 export default userRoutes;
-
-// next we protect routes, also add rolebased access

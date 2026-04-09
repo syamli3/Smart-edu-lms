@@ -10,6 +10,7 @@ import { Subjects } from "@/pages/academics/Subjects";
 import Timetable from "@/pages/academics/Timetable";
 import Exams from "@/pages/lms/Exams";
 import Exam from "../lms/Exam";
+import Register from "@/pages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       // public routes
       { index: true, element: <Home /> },
       { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
       // protected routes would go here
       {
         element: <PrivateRoutes />, // Assuming PrivateRoutes is imported

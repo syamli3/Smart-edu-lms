@@ -55,9 +55,11 @@ const Navbar = () => {
             >
               AI Guide
             </a>
-            <button className="bg-[#3ecf8e] text-black px-5 py-2 rounded-md font-bold hover:bg-[#34b27b] transition-all transform hover:scale-105">
-              Apply Now
-            </button>
+            <Link to="/register">
+              <button className="bg-[#3ecf8e] text-black px-5 py-2 rounded-md font-bold hover:bg-[#34b27b] transition-all transform hover:scale-105">
+                Apply Now
+              </button>
+            </Link>
           </div>
 
           {/* Mobile button */}
@@ -103,9 +105,11 @@ const Navbar = () => {
           >
             AI Guide
           </a>
-          <button className="w-full bg-[#3ecf8e] text-black px-5 py-3 rounded-md font-bold text-center">
-            Apply Now
-          </button>
+          <Link to="/register" className="block w-full">
+            <button className="w-full bg-[#3ecf8e] text-black px-5 py-3 rounded-md font-bold text-center">
+              Apply Now
+            </button>
+          </Link>
         </div>
       )}
     </nav>
