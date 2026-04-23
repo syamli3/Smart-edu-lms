@@ -26,6 +26,9 @@ import {
 import timeRouter from "./routes/timetable.ts";
 import examRouter from "./routes/exam.ts";
 import dashboardRouter from "./routes/dashboard.ts";
+import enrollmentRoutes from "./routes/enrollment.routes";
+import quizRoutes from "./routes/quiz.routes";
+import analyticsRoutes from "./routes/analytics.routes";
 
 // Load environment variables from .env file
 // Load environment variables from .env file
@@ -65,6 +68,9 @@ app.use("/api/subjects", subjectRouter);
 app.use("/api/timetables", timeRouter);
 app.use("/api/exams", examRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/enrollments", enrollmentRoutes);
+app.use("/api/quizzes", quizRoutes);
+app.use("/api/analytics", analyticsRoutes);
 app.use(
   "/api/inngest",
   serve({
